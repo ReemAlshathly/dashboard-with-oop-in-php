@@ -1,7 +1,11 @@
 <?php
-require('db.php');
-$id=$_REQUEST['id'];
-$query = "DELETE FROM product WHERE id=$id"; 
-$result = mysqli_query($con,$query) or die ( mysqli_error());
-header("Location: viewp.php"); 
+ require_once('db.php');
+ $id = $_GET['id'];
+ 
+ $res = $database->delete($id);
+ if($res){
+ 	header('location: viewp.php');
+ }else{
+ 	echo "Failed to Delete Record";
+ }
 ?>

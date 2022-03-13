@@ -1,61 +1,64 @@
 <?php
-require('db.php');
-include("auth.php");
-$id=$_REQUEST['id'];
-$query = "SELECT * from product where id='$id'"; 
-$result = mysqli_query($con, $query) or die ( mysqli_error());
-$row = mysqli_fetch_assoc($result);
+ require_once('db.php');
+ $id = $_GET['id'];
+ $res = $database->read($id);
+ $r = mysqli_fetch_assoc($res);
+ if(isset($_POST) & !empty($_POST)){
+	 $fname = $database->sanitize($_POST['fname']);
+	 $lname = $database->sanitize($_POST['lname']);
+	 $id = $database->sanitize($_POST['id']);
+	 
+
+	$res = $database->update($fname, $lname, $id);
+	if($res){
+	 	echo "Successfully updated data";
+	}else{
+	 	echo "failed to update data";
+	}
+}
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>Update Record</title>
-<link rel="stylesheet" href="css/style.css" />
+	<title>Simple CRUD Application in PHP & MySQL - Update</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 </head>
 <body>
-<div class="form">
-<p><a href="dashboard1.php">Dashboard</a> 
-| <a href="insertp.php">Insert New Record</a> 
-| <a href="logout.php">Logout</a></p>
-<h1>Update Record</h1>
-<?php
-$status = "";
-if(isset($_POST['new']) && $_POST['new']==1)
-{
-// $id=$_REQUEST['id'];
-$name =$_REQUEST['product'];
-$cat =$_REQUEST['catogry'];
-$id=$_REQUEST['id'];
-$submittedby = $_SESSION["username"];
-$update="update product set
-product ='$name', catogry ='$cat'
- where id= '$id' ";
+<div class="container">
+	<div class="row">
+<form method="post" class="form-horizontal col-md-6 col-md-offset-3">
+	<h2>Update Operation in CRUD Application</h2>
+	<div class="form-group">
+	    <label for="input1" class="col-sm-2 control-label">First Name</label>
+	    <div class="col-sm-10">
+	      <input type="text" name="fname"  class="form-control" id="input1" value="<?php echo $r['product'] ?>" placeholder="First Name" />
+	    </div>
+	</div>
 
+	<div class="form-group">
+	    <label for="input1" class="col-sm-2 control-label">Last Name</label>
+	    <div class="col-sm-10">
+	      <input type="text" name="lname"  class="form-control" id="input1" value="<?php echo $r['catogry'] ?>" placeholder="Last Name" />
+	    </div>
+	</div>
 
+	<div class="form-group">
+	    <label for="input1" class="col-sm-2 control-label">E-Mail</label>
+	    <div class="col-sm-10">
+	      <input type="int" name="id"  class="form-control" id="input1" value="<?php echo $r['id'] ?>" placeholder="E-Mail" />
+	    </div>
+	</div>
 
-// (id``,`product`,`catogry`)values
-//     ( '$id','$name','$cat')"
+	
 
-
-mysqli_query($con, $update) or die(mysqli_error());
-$status = "Record Updated Successfully. </br></br>
-<a href='viewp.php'>View Updated Record</a>";
-echo '<p style="color:#FF0000;">'.$status.'</p>';
-}else {
-?>
-<div>
-<form name="form" method="post" action=""> 
-<input type="hidden" name="new" value="1" />
-<input name="id" type="text" value="<?php echo $row['id'];?>" />
-<p><input type="text" name="product" placeholder="Enter Name" 
-required value="<?php echo $row['product'];?>" /></p>
-<p><input type="text" name="catogry" placeholder="Enter Age" 
-required value="<?php echo $row['catogry'];?>" /></p>
-<p><input name="submit" type="submit" value="Update" /></p>
+	
+	<input type="submit" class="btn btn-primary col-md-2 col-md-offset-10" value="Update" />
 </form>
-<?php } ?>
-</div>
+	</div>
 </div>
 </body>
 </html>
