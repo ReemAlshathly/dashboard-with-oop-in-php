@@ -1,7 +1,7 @@
 <?php
   
   // Include database file
-  include 'customersc.php';
+  include 'customers.php';
 
   $customerObj = new Employee();
 
@@ -40,7 +40,7 @@
                     <h4 class="text-white">Update Records</h4>
                 </div>
                 <div class="card-body bg-light">
-                  <form action="editc.php" method="POST">
+                  <form action="edit.php" method="POST">
                     <div class="form-group">
                       <label for="name">Name:</label>
                       <input type="text" class="form-control" name="uname" value="<?php echo $customer['name']; ?>" required="">

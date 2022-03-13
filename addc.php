@@ -1,21 +1,15 @@
 <?php
-  
+
   // Include database file
   include 'customersc.php';
 
   $customerObj = new Employee();
 
-  // Edit customer record
-  if(isset($_GET['editId']) && !empty($_GET['editId'])) {
-    $editId = $_GET['editId'];
-    $customer = $customerObj->displyaRecordById($editId);
+  // Insert Record in customer table
+  if(isset($_POST['submit'])) {
+    $customerObj->insertData($_POST);
   }
 
-  // Update Record in customer table
-  if(isset($_POST['update'])) {
-    $customerObj->updateRecord($_POST);
-  }  
-    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,27 +30,24 @@
     <div class="row">
         <div class="col-md-5 mx-auto">
             <div class="card">
-                <div class="card-header bg-primary">
-                    <h4 class="text-white">Update Records</h4>
+                <div class="card-header bg-dark text-white">
+                    <h4>Insert Data</h4>
                 </div>
                 <div class="card-body bg-light">
-                  <form action="editc.php" method="POST">
+                  <form action="addc.php" method="POST">
                     <div class="form-group">
-                      <label for="name">Name:</label>
-                      <input type="text" class="form-control" name="uname" value="<?php echo $customer['name']; ?>" required="">
+                      <label for="name">id:</label>
+                      <input type="text" class="form-control" name="name" placeholder="Enter name" required="">
                     </div>
                     <div class="form-group">
-                      <label for="email">Email</label>
-                      <input type="text" class="form-control" name="uemail" value="<?php echo $customer['email']; ?>" required="">
+                      <label for="email">product</label>
+                      <input type="text" class="form-control" name="email" placeholder="Enter email" required="">
                     </div>
                     <div class="form-group">
-                      <label for="salary">Salary:</label>
-                      <input type="text" class="form-control" name="usalary" value="<?php echo $customer['salary']; ?>" required="">
+                      <label for="salary">catogry:</label>
+                      <input type="text" class="form-control" name="salary" placeholder="Enter Salary" required="">
                     </div>
-                    <div class="form-group">
-                      <input type="hidden" name="id" value="<?php echo $customer['id']; ?>">
-                      <input type="submit" name="update" class="btn btn-primary" style="float:right;" value="Update">
-                    </div>
+                    <input type="submit" name="submit" class="btn btn-primary" style="float:right;" value="Submit">
                   </form>
                 </div>
                 </div>

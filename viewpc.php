@@ -1,7 +1,7 @@
 <?php
   
   // Include database file
-  include 'customers.php';
+  include 'customersc.php';
 
   $customerObj = new Employee();
 
@@ -48,16 +48,16 @@
             </div>";
     }
   ?>
-  <h2>View product
-    <a href="addp.php" style="float:right;"><button class="btn btn-success"><i class="fas fa-plus"></i></button></a>
+  <h2>View categories
+    <a href="addc.php" style="float:right;"><button class="btn btn-success"><i class="fas fa-plus"></i></button></a>
   </h2>
   <table class="table table-hover">
     <thead>
       <tr>
         <th>Id</th>
-        <th>product</th>
         <th>catogry</th>
-        <th>price</th>
+        <th>country</th>
+        <th>quntity</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -70,11 +70,11 @@
           <td><?php echo $customer['id'] ?></td>
           <td><?php echo $customer['name'] ?></td>
           <td><?php echo $customer['email'] ?></td>
-          <td><?php echo $customer['salary'] ?>$</td>
+          <td><?php echo $customer['salary'] ?>. once</td>
           <td>
-            <button class="btn btn-primary mr-2"><a href="edit.php?editId=<?php echo $customer['id'] ?>">
+            <button class="btn btn-primary mr-2"><a href="editc.php?editId=<?php echo $customer['id'] ?>">
               <i class="fa fa-pencil text-white" aria-hidden="true"></i></a></button>
-            <button class="btn btn-danger"><a href="viewp.php?deleteId=<?php echo $customer['id'] ?>" onclick="confirm('Are you sure want to delete this record')">
+            <button class="btn btn-danger"><a href="viewpc.php?deleteId=<?php echo $customer['id'] ?>" onclick="confirm('Are you sure want to delete this record')">
               <i class="fa fa-trash text-white" aria-hidden="true"></i>
             </a></button>
           </td>
